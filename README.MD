@@ -1,4 +1,4 @@
-Recipe App - Ionic React
+## Recipe App - Ionic React
 
 A mobile-friendly recipes app built with Ionic React, TypeScript, and Vite. Browse recipes, view details (ingredients, steps, duration, difficulty), and enjoy a responsive UI ready for the web, iOS, and Android via Capacitor.
 
