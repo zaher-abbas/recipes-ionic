@@ -3,7 +3,7 @@ import {
     IonCard, IonCardContent,
     IonCardHeader,
     IonCardTitle, IonCol,
-    IonContent, IonFab, IonFabButton, IonGrid,
+    IonContent, IonGrid,
     IonHeader, IonIcon, IonImg,
     IonPage, IonRow,
     IonTitle,
