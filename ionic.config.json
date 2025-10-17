@@ -1,0 +1,7 @@
+{
+  "name": "ecf-recettes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
