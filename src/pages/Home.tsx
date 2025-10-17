@@ -1,25 +1,118 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import {
+    IonBadge, IonButton,
+    IonCard, IonCardContent,
+    IonCardHeader,
+    IonCardTitle, IonCol,
+    IonContent, IonFab, IonFabButton, IonGrid,
+    IonHeader, IonIcon, IonImg,
+    IonPage, IonRow,
+    IonTitle,
+    IonToolbar
+} from '@ionic/react';
 import './Home.css';
+import {add, restaurantOutline, speedometerOutline, timeOutline} from "ionicons/icons";
+import {Recipe} from "../data/Storage";
+import React, {useEffect, useState} from "react";
+import {initialRecipes} from "../data/Storage";
 
-const Home: React.FC = () => {
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
-      </IonContent>
-    </IonPage>
-  );
+export const Home: React.FC = () => {
+
+   const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+    useEffect(() => {
+        setRecipes(initialRecipes);
+    }, []);
+
+    const difficultyColor = (d: string): 'success' | 'warning' | 'danger' | 'medium' => {
+        const v = d.toLowerCase();
+        if (v === 'easy') return 'success';
+        if (v === 'medium') return 'warning';
+        if (v === 'hard') return 'danger';
+        return 'medium';
+    };
+
+    return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>👨‍🍳 Recipes App</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <IonButton className="ion-margin-top" aria-label="Add a recipe" routerLink="/home" color="primary">
+                        <IonIcon slot="icon-only" icon={add} />
+                    </IonButton>
+                </div>
+                {recipes.length === 0 && (
+                    <IonCard style={{ textAlign: 'center', padding: 24, boxShadow: 'none', border: '1px dashed var(--ion-color-medium)', borderRadius: 12 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+                            <IonIcon icon={restaurantOutline} style={{ fontSize: 48, color: 'var(--ion-color-medium)' }} />
+                            <IonCardHeader style={{ padding: 0 }}>
+                                <IonCardTitle style={{ fontSize: '1.25rem', fontWeight: 800 }}>No recipes yet</IonCardTitle>
+                            </IonCardHeader>
+                            <IonCardContent style={{ paddingTop: 0 }}>
+                                <p style={{ color: 'var(--ion-color-medium-shade)', margin: '0 0 16px' }}>
+                                    Start by adding your first delicious recipe.
+                                </p>
+                                <IonButton color="primary" routerLink="/home" shape="round">
+                                    <IonIcon slot="start" icon={add} />
+                                    Add a recipe
+                                </IonButton>
+                            </IonCardContent>
+                        </div>
+                    </IonCard>
+                )}
+                {recipes.length > 0 && (
+                    <IonGrid>
+                        <IonRow>
+                            {recipes.map((r) => (
+                                <IonCol className="ion-padding" key={r.id} size="12" size-md="6" size-lg="4">
+                                    <IonCard style={{height: '100%'}} className="ion-no-margin"
+                                             routerLink={`/recipes/${r.id}`}>
+                                        {r.image ? (
+                                            <IonImg style={{
+                                                width: '100%',
+                                                aspectRatio: '16 / 9',
+                                                objectFit: 'cover'
+                                            }}
+                                                    src={r.image} alt={r.title}/>
+                                        ) : null}
+
+                                        <IonCardHeader>
+                                            <IonCardTitle
+                                                style={{fontSize: '1.1rem', lineHeight: 1.2}}>{r.title}</IonCardTitle>
+                                        </IonCardHeader>
+
+                                        <IonCardContent>
+                                            <div className="ion-justify-content-start ion-align-items-center"
+                                                 style={{display: 'flex', gap: 6}}>
+                                                <IonBadge color={difficultyColor(r.difficulty)}
+                                                          style={{textTransform: 'capitalize'}}>
+                                                    <IonIcon icon={speedometerOutline}
+                                                             style={{marginRight: 6, verticalAlign: 'middle'}}/>
+                                                    {r.difficulty}
+                                                </IonBadge>
+
+                                                <IonBadge color="primary">
+                                                    <IonIcon icon={timeOutline}
+                                                             style={{marginRight: 6, verticalAlign: 'middle'}}/>
+                                                    {r.duration} min
+                                                </IonBadge>
+                                            </div>
+                                        </IonCardContent>
+                                    </IonCard>
+                                </IonCol>
+                            ))}
+                        </IonRow>
+                    </IonGrid>
+                )}
+
+            </IonContent>
+        </IonPage>
+    );
 };
 
-export default Home;
+
+
+
