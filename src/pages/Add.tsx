@@ -55,7 +55,7 @@ const Add: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>💸 Add Recipe</IonTitle>
+                    <IonTitle>🍴 Add Recipe</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
