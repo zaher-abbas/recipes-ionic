@@ -6,6 +6,9 @@ A mobile-friendly recipes app built with Ionic React, TypeScript, and Vite. Brow
 - Recipe listing and detail pages
 - Ingredients and steps with clear, readable presentation
 - Difficulty and duration badges with icons
+- Modern Dark mode toggle.
+- Offline support
+- Data persistence via Capacitor Preferences.
 - Responsive Ionic UI components
 - Cross-platform build (Web, iOS, Android)
 - Unit tests (Vitest + Testing Library)
