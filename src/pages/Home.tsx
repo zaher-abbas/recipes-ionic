@@ -7,7 +7,7 @@ import {
     IonHeader, IonIcon, IonImg,
     IonPage, IonRow,
     IonTitle,
-    IonToolbar
+    IonToolbar, useIonViewWillEnter
 } from '@ionic/react';
 import './Home.css';
 import {add, restaurantOutline, speedometerOutline, timeOutline} from "ionicons/icons";
@@ -19,14 +19,20 @@ export const Home: React.FC = () => {
    const [initRecipes, setInitRecipes] = useState<Recipe[]>(initialRecipes);
    const [recipes, setRecipes] = useState<Recipe[]>(initRecipes);
 
+   async function loadRecipes() {
+       const storedRecipes: Recipe[] = await getRecipes();
+       const totalRecipes = storedRecipes.concat(initRecipes);
+       setRecipes(totalRecipes);
+   }
+
     useEffect(() => {
-        const loadRecipes = async () => {
-            const storedRecipes: Recipe[] = await getRecipes();
-           const totalRecipes = storedRecipes.concat(initRecipes);
-           setRecipes(totalRecipes);
-        }
-        loadRecipes();
+       loadRecipes();
     }, []);
+
+    useIonViewWillEnter(() => {
+        loadRecipes();
+    });
+
 
     const difficultyColor = (d: string): 'success' | 'warning' | 'danger' | 'medium' => {
         const v = d.toLowerCase();
