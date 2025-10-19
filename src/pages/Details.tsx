@@ -12,7 +12,7 @@ import {
     IonTitle,
 } from "@ionic/react";
 import {useParams} from "react-router";
-import {getRecipes, Recipe} from "../data/Storage";
+import {getRecipes, initialRecipes, Recipe} from "../data/Storage";
 import {
     arrowBack,
     caretForwardOutline,
@@ -39,8 +39,9 @@ export const Details: React.FC = () => {
 
     useEffect(() => {
         const loadRecipes = async () => {
-            const storedRecipes = await getRecipes();
-            setRecipes(storedRecipes);
+            const storedRecipes: Recipe[] = await getRecipes();
+            const totalRecipes = storedRecipes.concat(initialRecipes);
+            setRecipes(totalRecipes);
         };
         loadRecipes();
     }, []);
