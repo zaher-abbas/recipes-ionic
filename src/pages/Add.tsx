@@ -39,14 +39,13 @@ const Add: React.FC = () => {
             ingredients: ingredients,
             steps: steps
         };
-        if (!difficulty || !duration || !title || !image || !ingredients.length || !steps.length){
+        if (!difficulty){
             setError(true);
             return;
         }
         const recipes: Recipe[] = await getRecipes();
         const newRecipes = [addedRecipe, ...recipes];
         await saveRecipe(newRecipes);
-        console.log('Recipe added:', addedRecipe);
         history.push('/home');
         return;
     }
@@ -55,7 +54,7 @@ const Add: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>🍴 Add Recipe</IonTitle>
+                    <IonTitle>🍴 Add A New Recipe</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
@@ -103,7 +102,7 @@ const Add: React.FC = () => {
                                         </IonSelect>
                                     </IonItem>
                                     {error && <IonNote color="danger" className="ion-margin-start">Please select a
-                                        category!</IonNote>}
+                                        difficulty!</IonNote>}
                                     <IonItem>
                                         <IonLabel position="stacked">Duration</IonLabel>
                                         <IonInput
@@ -130,7 +129,7 @@ const Add: React.FC = () => {
                                             rows={4}
                                             required
                                             name="ingredients"
-                                            placeholder="e.g. 2 eggs
+                                            placeholder="2 eggs
 200 g flour
 1 tsp salt"
                                         />
@@ -151,7 +150,7 @@ const Add: React.FC = () => {
                                             required
                                             rows={6}
                                             name="steps"
-                                            placeholder="e.g. Preheat oven to 180°C
+                                            placeholder="Preheat oven to 180°C
 Mix dry ingredients
 Whisk in eggs"
                                         />

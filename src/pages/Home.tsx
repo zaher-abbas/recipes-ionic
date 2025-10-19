@@ -118,7 +118,6 @@ export const Home: React.FC = () => {
                         </IonRow>
                     </IonGrid>
                 )}
-
             </IonContent>
         </IonPage>
     );
