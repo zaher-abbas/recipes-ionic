@@ -27,10 +27,11 @@ import '@ionic/react/css/display.css';
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+/* import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/darkmode.css';
 import {Details} from "./pages/Details";
 import {IonReactRouter} from "@ionic/react-router";
 import Add from "./pages/Add";

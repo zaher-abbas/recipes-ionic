@@ -1,0 +1,67 @@
+body.dark {
+    /* Couleurs de fond et de texte */
+    --ion-background-color: #121212;
+    --ion-background-color-rgb: 18, 18, 18;
+
+    --ion-text-color: #e5e7eb;          /* gris très clair pour un bon contraste */
+    --ion-text-color-rgb: 229, 231, 235;
+
+    /* Paliers de couleur (utilisés par de nombreux composants) */
+    --ion-color-step-50:  #1a1a1a;
+    --ion-color-step-100: #202020;
+    --ion-color-step-150: #252525;
+    --ion-color-step-200: #2b2b2b;
+    --ion-color-step-250: #303030;
+    --ion-color-step-300: #363636;
+    --ion-color-step-350: #3b3b3b;
+    --ion-color-step-400: #414141;
+    --ion-color-step-450: #464646;
+    --ion-color-step-500: #4c4c4c;
+    --ion-color-step-550: #515151;
+    --ion-color-step-600: #575757;
+    --ion-color-step-650: #5c5c5c;
+    --ion-color-step-700: #626262;
+    --ion-color-step-750: #676767;
+    --ion-color-step-800: #6d6d6d;
+    --ion-color-step-850: #727272;
+    --ion-color-step-900: #787878;
+    --ion-color-step-950: #7d7d7d;
+
+    /* Arrière-plans spécifiques de composants */
+    --ion-toolbar-background: #1b1b1f;
+    --ion-tab-bar-background: #1b1b1f;
+    --ion-card-background: #1a1a1a;
+    --ion-item-background: #141414;
+
+    /* Bordures/diviseurs */
+    --ion-border-color: #2f2f2f;
+
+    /* Couleurs de texte par intensité (utiles pour labels, placeholders, etc.) */
+    --ion-text-color-step-50:  #f5f5f5;
+    --ion-text-color-step-100: #f0f0f0;
+    --ion-text-color-step-200: #e6e6e6;
+    --ion-text-color-step-300: #d9d9d9;
+    --ion-text-color-step-400: #cccccc;
+    --ion-text-color-step-500: #bfbfbf;
+    --ion-text-color-step-600: #b3b3b3;
+    --ion-text-color-step-700: #a6a6a6;
+    --ion-text-color-step-800: #999999;
+    --ion-text-color-step-900: #8c8c8c;
+
+    /* Conservez vos couleurs de marque (primary, secondary, etc.) telles quelles,
+       ou assombrissez-les légèrement si nécessaire.
+       Exemple (optionnel) : */
+    /* --ion-color-primary: #7aa2ff;
+       --ion-color-primary-contrast: #0b0b0b; */
+}
+
+/* Use Ionic's --color custom property so text inside Shadow DOM picks it up */
+body.dark ion-card {
+    --color: var(--ion-text-color);
+}
+
+/* These components also read --color */
+body.dark ion-card-title,
+body.dark ion-card-content {
+    --color: var(--ion-text-color);
+}

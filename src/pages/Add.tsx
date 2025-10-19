@@ -1,7 +1,7 @@
 import {
-    IonButton, IonCol,
+    IonButton, IonButtons, IonCol,
     IonContent, IonGrid,
-    IonHeader,
+    IonHeader, IonIcon,
     IonInput,
     IonItem,
     IonLabel,
@@ -14,6 +14,8 @@ import {
 import React, { useState } from 'react';
 import {useHistory} from "react-router-dom";
 import {getRecipes, Recipe, saveRecipe} from "../data/Storage";
+import {useDarkMode} from "../hooks/useDarkMode";
+import {moon, sunny} from "ionicons/icons";
 
 const Add: React.FC = () => {
     const history = useHistory();
@@ -26,6 +28,8 @@ const Add: React.FC = () => {
 
     const [error, setError] = useState<Boolean>(false);
     const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
+    const {isDark, toggleDarkMode} = useDarkMode();
+
 
     async function submit (e: React.FormEvent) {
         e.preventDefault();
@@ -55,6 +59,14 @@ const Add: React.FC = () => {
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>🍴 Add A New Recipe</IonTitle>
+                    <IonButtons slot="end">
+                        <IonButton
+                            onClick={toggleDarkMode}
+                            aria-label={isDark ? 'Deactivate Dark Mode' : 'Activate Dark Mode'}
+                        >
+                            <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
+                        </IonButton>
+                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>

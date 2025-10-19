@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import {
-    IonBadge,
+    IonBadge, IonButton, IonButtons,
     IonCard, IonCardContent, IonCardTitle,
     IonCol,
     IonContent, IonFab, IonFabButton,
@@ -9,18 +9,19 @@ import {
     IonImg, IonItem, IonLabel, IonList, IonListHeader,
     IonPage,
     IonRow,
-    IonTitle,
+    IonTitle, IonToolbar,
 } from "@ionic/react";
 import {useParams} from "react-router";
 import {getRecipes, initialRecipes, Recipe} from "../data/Storage";
 import {
     arrowBack,
     caretForwardOutline,
-    checkmarkDoneOutline,
+    checkmarkDoneOutline, moon,
     restaurantOutline,
-    speedometerOutline,
+    speedometerOutline, sunny,
     timeOutline
 } from "ionicons/icons";
+import {useDarkMode} from "../hooks/useDarkMode";
 
 export const Details: React.FC = () => {
 
@@ -28,6 +29,8 @@ export const Details: React.FC = () => {
     const [currentRecipe, setCurrentRecipe] = useState<Recipe>();
     const {recipe_id} = useParams<{ recipe_id?: string }>();
     const [id, setId] = useState<number|null> (null);
+    const {isDark, toggleDarkMode} = useDarkMode();
+
 
     useEffect(() => {
         if (recipe_id) {
@@ -62,15 +65,24 @@ export const Details: React.FC = () => {
         <IonPage>
             {currentRecipe && (
                 <IonHeader>
-                    <IonTitle className="ion-padding">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <IonIcon icon={restaurantOutline} style={{ fontSize: '1.75rem', color: 'var(--ion-color-primary)' }} />
-                            <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: 0.3 }}>
+                    <IonToolbar>
+                        <IonTitle className="ion-padding">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <IonIcon icon={restaurantOutline} style={{ fontSize: '1.75rem', color: 'var(--ion-color-primary)' }} />
+                                <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: 0.3 }}>
                                     {currentRecipe.title}
                                 </span>
-                        </div>
-                    </IonTitle>
-
+                            </div>
+                        </IonTitle>
+                        <IonButtons slot="end">
+                            <IonButton
+                                onClick={toggleDarkMode}
+                                aria-label={isDark ? 'Deactivate Dark Mode' : 'Activate Dark Mode'}
+                            >
+                                <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
                 </IonHeader>
             )}
                 <IonContent fullscreen>

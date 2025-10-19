@@ -1,5 +1,5 @@
 import {
-    IonBadge, IonButton,
+    IonBadge, IonButton, IonButtons,
     IonCard, IonCardContent,
     IonCardHeader,
     IonCardTitle, IonCol,
@@ -10,14 +10,17 @@ import {
     IonToolbar, useIonViewWillEnter
 } from '@ionic/react';
 import './Home.css';
-import {add, restaurantOutline, speedometerOutline, timeOutline} from "ionicons/icons";
+import {add, moon, restaurantOutline, speedometerOutline, sunny, timeOutline} from "ionicons/icons";
 import {getRecipes, initialRecipes, Recipe} from "../data/Storage";
 import React, {useEffect, useState} from "react";
+import {useDarkMode} from "../hooks/useDarkMode";
+
 
 export const Home: React.FC = () => {
 
    const [initRecipes, setInitRecipes] = useState<Recipe[]>(initialRecipes);
    const [recipes, setRecipes] = useState<Recipe[]>(initRecipes);
+   const {isDark, toggleDarkMode} = useDarkMode();
 
    async function loadRecipes() {
        const storedRecipes: Recipe[] = await getRecipes();
@@ -47,6 +50,14 @@ export const Home: React.FC = () => {
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>👨‍🍳 Recipes App</IonTitle>
+                    <IonButtons slot="end">
+                        <IonButton
+                            onClick={toggleDarkMode}
+                            aria-label={isDark ? 'Deactivate Dark Mode' : 'Activate Dark Mode'}
+                        >
+                            <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
+                        </IonButton>
+                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
