@@ -12,8 +12,7 @@ import {
     IonTitle,
 } from "@ionic/react";
 import {useParams} from "react-router";
-import {Recipe} from "../data/Storage";
-import {initialRecipes} from "../data/Storage";
+import {getRecipes, Recipe} from "../data/Storage";
 import {
     arrowBack,
     caretForwardOutline,
@@ -25,7 +24,7 @@ import {
 
 export const Details: React.FC = () => {
 
-    const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [currentRecipe, setCurrentRecipe] = useState<Recipe>();
     const {recipe_id} = useParams<{ recipe_id?: string }>();
     const [id, setId] = useState<number|null> (null);
@@ -33,8 +32,19 @@ export const Details: React.FC = () => {
     useEffect(() => {
         if (recipe_id) {
             setId(Number(recipe_id));
+
+            setCurrentRecipe(() => [...recipes].find(r => r.id === parseInt(recipe_id)));
         }
-    }, [recipe_id])
+    }, [recipe_id, recipes]);
+
+    useEffect(() => {
+        const loadRecipes = async () => {
+            const storedRecipes = await getRecipes();
+            setRecipes(storedRecipes);
+        };
+        loadRecipes();
+    }, []);
+
 
     useEffect(() => {
         if (!recipe_id) return;

@@ -33,6 +33,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import {Details} from "./pages/Details";
 import {IonReactRouter} from "@ionic/react-router";
+import Add from "./pages/Add";
 
 setupIonicReact();
 
@@ -46,6 +47,9 @@ const App: React.FC = () => (
           <Route exact path="/recipes/:recipe_id" component={Details}/>
           <Route exact path="/">
               <Redirect to="/home" />
+          </Route>
+          <Route exact path="/add">
+              <Add />
           </Route>
       </IonRouterOutlet>
           </IonReactRouter>

@@ -11,16 +11,21 @@ import {
 } from '@ionic/react';
 import './Home.css';
 import {add, restaurantOutline, speedometerOutline, timeOutline} from "ionicons/icons";
-import {Recipe} from "../data/Storage";
+import {getRecipes, initialRecipes, Recipe} from "../data/Storage";
 import React, {useEffect, useState} from "react";
-import {initialRecipes} from "../data/Storage";
 
 export const Home: React.FC = () => {
 
-   const [recipes, setRecipes] = useState<Recipe[]>([]);
+   const [initRecipes, setInitRecipes] = useState<Recipe[]>(initialRecipes);
+   const [recipes, setRecipes] = useState<Recipe[]>(initRecipes);
 
     useEffect(() => {
-        setRecipes(initialRecipes);
+        const loadRecipes = async () => {
+            const storedRecipes: Recipe[] = await getRecipes();
+           const totalRecipes = storedRecipes.concat(initRecipes);
+           setRecipes(totalRecipes);
+        }
+        loadRecipes();
     }, []);
 
     const difficultyColor = (d: string): 'success' | 'warning' | 'danger' | 'medium' => {
@@ -40,7 +45,7 @@ export const Home: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <IonButton className="ion-margin-top" aria-label="Add a recipe" routerLink="/home" color="primary">
+                    <IonButton className="ion-margin-top" aria-label="Add a recipe" routerLink="/add" color="primary">
                         <IonIcon slot="icon-only" icon={add} />
                     </IonButton>
                 </div>
